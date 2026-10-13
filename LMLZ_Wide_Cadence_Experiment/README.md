@@ -30,14 +30,25 @@ most one visit per field.
 |---|---|
 | [`configs/`](configs/) | `infant_sne_<cadence>.yaml`, one per schedule. They are the upstream `infant_sne.yaml` with the local schedule substituted and `photometry_pre_window: 30 day` added to every class. |
 | [`schedules/`](schedules/) | `<cadence>/plan.ecsv` and `run.json` for each schedule, `fov/chips.ds9`, and [`generation/`](schedules/generation/) with the scripts that built and checked them. |
-| [`products/`](products/) | Transient-simulation outputs (`final_catalog`, `exposure`, `photometry`, `event_summary`, all `.ecsv`) per schedule. See its README. |
+| [`products/`](products/) | Transient-simulation outputs (`final_catalog`, `exposure`, `photometry`, `event_summary`, all `.ecsv`) per schedule. |
 | [`visualization/`](visualization/) | Scripts and figures. `figures/` holds the cross-schedule comparisons, `schedule_reports/<cadence>/` the scheduler's own report figures for each schedule. |
 
 ## Reproducing
 
-**1. Schedules** (needs a `uvex-scheduler` checkout, Python 3.14 with `uv`, and a full CPLEX license):
-see [`schedules/generation/README.md`](schedules/generation/README.md). The finished `plan.ecsv` files are
-already included here, so this step is only needed to regenerate or change them.
+**1. Schedules.** The finished `plan.ecsv` files are already included, so this step is only needed to
+regenerate or change them. It needs a `uvex-scheduler` checkout (`uv sync --frozen`, Python 3.14) and the full
+CPLEX engine (`docplex config --upgrade ~/Applications/CPLEX_Studio222`; the pip `cplex` package is the
+community edition, capped at 1000 variables). Copy the scripts in `schedules/generation/` to
+`<uvex-scheduler>/runs/` and run them from the checkout:
+
+| Script | Purpose |
+|---|---|
+| `run_sweep.py` | Builds one directory per cadence, patches `min_cadence`, sets a 1 h solver limit and runs the `main`, `report` and `animate` notebooks: `python runs/run_sweep.py 2d 6h 1d 4d 10d`. `SWEEP_STAGES=report,animate` runs only later stages. |
+| `report_chunked.py` | Memory-lean replacement for selected `report.ipynb` cells (the stock notebook needs about 30 GB). |
+| `verify_plan.py` | Independent check of a plan's constraints. |
+| `solve_summary.py` | CPLEX outcome from the executed `main.ipynb`. |
+| `compute_cadence_histograms.py` | Per-pixel revisit-gap histograms, saved as `cadence_histograms.npz`. |
+| `plot_comparisons.py` | Schedule comparison figures, to copy into `visualization/figures/`. |
 
 **2. Transient simulation**, from this directory, once per cadence:
 
