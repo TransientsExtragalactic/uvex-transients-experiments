@@ -11,8 +11,7 @@ schedules, data products and figures together so the result can be reproduced an
 | [uvex-scheduler](https://github.com/m4opt/uvex-scheduler) | Notebooks that build the UVEX observing plan (field of view, sky grid, survey footprints, sky blocks, the mixed-integer schedule solve with [m4opt](https://github.com/m4opt/m4opt), and the report and animation of the resulting plan). Its output is a `plan.ecsv` observing schedule. |
 | [uvex-transients](https://github.com/TransientsExtragalactic/uvex-transients) | Spectral and light-curve models for kilonovae, TDEs, LFBOTs and supernovae, and the `uvex-transients` CLI that Monte Carlo samples those populations against a schedule to produce event catalogs, photometry and event summaries. |
 
-Those repositories are developed independently. An experiment here does not modify either one: it *pins* the
-versions it used (see the experiment's README) and stores only its own inputs and outputs.
+Those repositories are developed independently. An experiment here does not modify either one: it stores only its own inputs and outputs.
 
 ## Layout
 
@@ -20,7 +19,7 @@ Every experiment is a top-level directory with the same structure:
 
 ```
 <Experiment_Name>/
-  README.md        the question, the design, how to reproduce it, the provenance and the results so far
+  README.md        the question, the design and how to reproduce it
   configs/         uvex-transients run configurations used for the experiment
   schedules/       the observing schedules (plan.ecsv) under test, and how they were generated
   products/        data products written by the transient simulation, one subdirectory per schedule
@@ -38,8 +37,7 @@ it, so an experiment is self-contained once the two codes above are installed.
 
 ## Conventions
 
-- **Pin the versions.** Each experiment records the commit of `uvex-scheduler` and `uvex-transients`, the
-  solver, and the random seed it used. Configs are committed here, never only edited in a working tree.
+- **Commit configs.** Configs are committed here, never only edited in a working tree.
 - **Commit inputs and small products; keep bulky output out of git.** Configs, schedules, scripts, figures
   and summary tables belong in the repository. Large or easily regenerated files (animations, intermediate
   catalogs) are gitignored, or attached to a release if they need to be shared.
