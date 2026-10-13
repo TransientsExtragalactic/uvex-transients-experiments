@@ -21,7 +21,7 @@ Every experiment is a top-level directory with the same structure:
 <Experiment_Name>/
   README.md        the question, the design and how to reproduce it
   configs/         uvex-transients run configurations used for the experiment
-  schedules/       the observing schedules (plan.ecsv) under test, and how they were generated
+  schedules/       the observing schedules (plan files) under test
   products/        data products written by the transient simulation, one subdirectory per schedule
   visualization/   analysis scripts and the figures they produce
 ```

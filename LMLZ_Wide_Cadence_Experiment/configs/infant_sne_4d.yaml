@@ -44,10 +44,10 @@
 
 # Local schedule from this experiment's scheduler sweep (LMLZ_WIDE min_cadence = 4 days), in place of the
 # released schedule the upstream config pins. Paths are relative to the working directory, so run from the
-# experiment root.
+# experiment root. `fov/chips.ds9` is the field-of-view definition from the `fov/` directory of the uvex-scheduler repo.
 schedule:
-  path: schedules/4d/plan.ecsv
-  fov_path: schedules/fov/chips.ds9
+  path: schedules/plan_lmlz_wide_4d.ecsv
+  fov_path: fov/chips.ds9
 
 mission: uvex_fast
 
