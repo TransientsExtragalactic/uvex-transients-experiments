@@ -1,0 +1,12 @@
+{
+  "label": "LMLZ_WIDE min_cadence = 4d",
+  "lmlz_wide_min_cadence": "4 * u.day",
+  "solver_timelimit": "1 * u.hour",
+  "shared_inputs": [
+    "fov/",
+    "survey-footprints/",
+    "tables/fields.ecsv",
+    "tables/skyblocks.ecsv"
+  ],
+  "report_notebook": "memory-lean chunked copy (see runs/report_chunked.py); validated against the original cells"
+}
