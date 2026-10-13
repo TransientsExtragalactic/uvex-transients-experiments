@@ -23,7 +23,7 @@ Every experiment is a top-level directory with the same structure:
   configs/         uvex-transients run configurations used for the experiment
   schedules/       the observing schedules (plan files) under test
   products/        data products written by the transient simulation, one subdirectory per schedule
-  visualization/   analysis scripts and the figures they produce
+  visualization/   figures
 ```
 
 Scripts are run from the experiment's root directory, and every path in a config or script is relative to

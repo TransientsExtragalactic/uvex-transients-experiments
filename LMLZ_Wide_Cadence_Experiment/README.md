@@ -31,7 +31,7 @@ most one visit per field.
 | [`configs/`](configs/) | `infant_sne_<cadence>.yaml`, one per schedule. They are the upstream `infant_sne.yaml` with the local schedule substituted and `photometry_pre_window: 30 day` added to every class. |
 | [`schedules/`](schedules/) | `plan_lmlz_wide_<cadence>.ecsv`, the observing plan for each schedule. |
 | [`products/`](products/) | Transient-simulation outputs (`final_catalog`, `exposure`, `photometry`, `event_summary`, all `.ecsv`) per schedule. |
-| [`visualization/`](visualization/) | Scripts and figures. `figures/` holds the cross-schedule comparisons, `schedule_reports/<cadence>/` the scheduler's own report figures for each schedule. |
+| [`visualization/`](visualization/) | Per-schedule cadence distributions (`plan_lmlz_wide_<cadence>_cadence-distribution.pdf`), the time-usage comparison and the wide revisit and completion comparison. |
 
 ## Reproducing
 
@@ -45,11 +45,3 @@ uvex-transients run configs/infant_sne_2d.yaml --out-dir products/2d/
 The CLI reads checkpoint files that already exist in the output directory (its log shows it reading
 `final_catalog.ecsv`). After changing a config, remove `final_catalog.ecsv`, `photometry.ecsv` and
 `event_summary.ecsv` or pass `--overwrite`, so that old products are not reused.
-
-**2. Figures and counts**, from this directory:
-
-```bash
-python visualization/infant_sne_counts.py 2        # counts for a 2-mag rise (1, 2 or 3)
-python visualization/plot_rise_histograms.py       # 1/2/3-mag rise-time histograms
-python visualization/plot_example_lightcurves.py   # example counted / not-counted light curves
-```
