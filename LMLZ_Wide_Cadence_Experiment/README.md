@@ -31,17 +31,19 @@ most one visit per field.
 | [`configs/`](configs/) | `infant_sne_<cadence>.yaml`, one per schedule. They are the upstream `infant_sne.yaml` with the local schedule substituted and `photometry_pre_window: 30 day` added to every class. |
 | [`schedules/`](schedules/) | `plan_lmlz_wide_<cadence>.ecsv`, the observing plan for each schedule. |
 | [`products/`](products/) | Transient-simulation outputs (`final_catalog`, `exposure`, `photometry`, `event_summary`, all `.ecsv`) per schedule. |
+| [`notebooks/`](notebooks/) | `bracket_distribution.ipynb`: cumulative count of events with an observed rise bracket shorter than T, per schedule. `rapid_rise_rate.ipynb`: events whose photometry shows a rise faster than a given rate (mag per day) from the last non-detection. Settings are in each notebook's first section. |
 | [`visualization/`](visualization/) | Per-schedule cadence distributions (`plan_lmlz_wide_<cadence>_cadence-distribution.pdf`), the time-usage comparison and the wide revisit and completion comparison. |
 
 ## Reproducing
 
-**1. Transient simulation**, from this directory, once per cadence. The configs expect the uvex-scheduler
-repository's `fov/` directory (it provides `fov/chips.ds9`) in this directory, e.g. as a symlink:
+**1. Transient simulation**, from any directory:
 
 ```bash
-uvex-transients run configs/infant_sne_2d.yaml --out-dir products/2d/
+code/run_infant_sne.sh            # all five cadences
+code/run_infant_sne.sh 2d 6h      # or a chosen subset
 ```
 
-The CLI reads checkpoint files that already exist in the output directory (its log shows it reading
-`final_catalog.ecsv`). After changing a config, remove `final_catalog.ecsv`, `photometry.ecsv` and
-`event_summary.ecsv` or pass `--overwrite`, so that old products are not reused.
+Each run starts from an empty working directory, so no old checkpoint is reused, and its outputs land in
+`products/` as `infant_sne_<cadence>_{final_catalog,exposure,photometry,event_summary}.ecsv`. The script uses
+`uvex-transients` from `PATH` (override with `UVEX_TRANSIENTS=/path/to/uvex-transients`). The configs point
+at `products/chips.ds9`, the field-of-view definition used with the schedules.
