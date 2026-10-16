@@ -18,7 +18,7 @@ Five schedules, identical except for the `LMLZ_WIDE` `min_cadence` in `survey.py
 | `10d` | 10 days |
 
 For each schedule, the `uvex-transients` infant-SNe configuration (all supernova classes, 3-day selection
-window, 23 AB magnitude screen, SNR 5) is run on that schedule's plan, with the same seed (42), so
+window, 21 AB magnitude screen, SNR 5) is run on that schedule's plan, with the same seed (42), so
 differences between runs come from the schedule.
 
 Cadences are rounded up to the scheduler's 6-hour time blocks, and the constraint is a sliding window of at
